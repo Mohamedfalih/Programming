@@ -1,0 +1,46 @@
+/*Write a program that searches for an element in an array using both Linear Search and Binary Search
+algorithms. Analyze the time complexity of each algorithm and display the comparison in a table
+format.*/
+#include<stdio.h>
+
+int linear_search(int arr[],int target,int size)
+{
+    int j=0,found=0;
+    while(j<size)
+    {
+        if(arr[j]==target)
+        {
+            printf("Target is found at index %d\n",j);
+            found=1;
+            break;
+        }
+        else if(found==1)
+        {
+            printf("Target not found");
+        }
+        j++;
+    }
+}
+void main()
+{
+    int size;
+    printf("Enter the size of Array\n");
+    scanf("%d",&size);
+    int arr[size];
+    printf("Enter the Array elelments");
+    for(int i=0;i<size;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    int target;
+    printf("Enter the target to be find");
+    scanf("%d",&target);
+    linear_search(arr,target,size);
+}
+
+OUTPUT:
+
+Enter the size of Array: 8
+Enter the Array elelments: 1 5 4 2 63 8 7 9
+Enter the target to be find: 8
+Target is found at index 5
