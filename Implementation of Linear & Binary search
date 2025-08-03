@@ -1,0 +1,131 @@
+QUESTION:
+
+Write a program that searches for an element in an array using both Linear Search and Binary Search
+algorithms. Analyze the time complexity of each algorithm and display the comparison in a table
+format.
+
+SOURCE CODE:
+
+#include<iostream>
+using namespace std;
+
+void linear_search(int arr[],int size,int target)
+{
+    int j=0,found=0;
+    while(j<size)
+    {
+        if(arr[j]==target)
+        {
+            cout<<"Target "<<target<< " is found at index ["<<j<<"]\n";
+            found=1;
+            break;
+        }
+        
+        j++;
+    }
+    if(found==0)
+    {
+        cout<<"Target not found in the array";
+    }
+}
+
+void binary_search(int arr[],int size,int target) {
+    
+	int left=0,right=size-1,found=0;
+
+	while(left<=right)
+	{
+	    int mid;
+		mid=(left+right)/2;
+		if(arr[mid]==target)
+		{
+			cout<<"Target "<<target<< " is found at index ["<<mid<<"]\n";
+			found=1;
+			break;
+		}
+		if(target>arr[mid])
+		{
+			left=mid+1;
+			
+		}
+		else if(target<arr[mid])
+		{
+			right=mid-1;
+		}
+		else
+		{
+		    if(target>arr[size]&&target<arr[size])
+		    {
+		        size++;
+		    }
+		}
+	}
+	if(found==0)
+	    cout<<"Target not found in the array";
+
+}
+int main()
+{
+    int size;
+    cout<<"Enter the size of array: ";
+    cin>>size;
+    int arr[size];
+    cout<<"Enter the array elements: ";
+
+    for(int i=0;i<size;i++)
+    {
+        cin>>arr[i];
+    }
+    int target;
+    cout<<"\nEnter the element to be find: ";
+    cin>>target;
+    cout<<"\nWe can search the element in two approach\n1.Linear search\n2.Binary search\n";
+    cout<<"\nIf you choose Binary search the array must be sorted";
+    cout<<"\nEnter the choice: ";
+    int choice;
+    cin>>choice;
+    switch(choice)
+    {
+        case 1:
+            linear_search(arr,size,target);
+            break;
+        case 2:
+            binary_search(arr,size,target);
+            break;
+        default:
+            cout<<"\n...Program Terminated!...";
+            break;
+    }
+
+    cout<<" ____________________________________________\n";
+    cout<<"|RunningTime  |Linear Search  |Binary Search |\n";
+    cout<<"|_____________|_______________|______________|\n";
+    cout<<"|Best case    | O(1)          |  O(1)        |\n";
+    cout<<"|Average case | O(n)          |  O(logn)     |\n";
+    cout<<"|Worst case   | O(n)          |  O(logn)     |\n";
+    cout<<"|_____________|_______________|______________|";
+    
+    return 0;
+}
+
+OUTPUT:
+
+Enter the size of array: 7
+Enter the array elements: 2 4 6 8 10 12 14
+
+Enter the element to be find: 8
+
+We can search the element in two approach
+1.Linear search
+2.Binary search
+
+If you choose Binary search the array must be sorted
+Enter the choice: 2
+Target 8 is found at index [3]
+ ____________________________________________
+|RunningTime  |Linear Search  |Binary Search |
+|_____________|_______________|______________|
+|Best case    | O(1)          |  O(1)        |
+|Average case | O(n)          |  O(logn)     |
+|Worst case   | O(n)          |  O(logn)     |
+|_____________|_______________|______________|
