@@ -1,5 +1,5 @@
 #include <stdio.h>
-int search(int nums[],int size,int target) {
+int binary_search(int nums[],int size,int target) {
     
 	int left=0,right=size-1;
 
@@ -44,7 +44,7 @@ int main()
     int target;
     printf("Enter the Target to be find: ");
     scanf("%d",&target);
-    int result=search(nums,size,target);
+    int result=binary_search(nums,size,target);
     if(result!=-1)
     {
         printf("Target %d found at index %d\n", target, result);
