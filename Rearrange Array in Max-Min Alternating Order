@@ -1,0 +1,89 @@
+QUESTION:
+/*Given an array arr of distinct integers. Rearrange the array in such a way that the first element is the
+ *largest and the second element is the smallest, the third element is the second largest and the fourth
+ *element is the second smallest, and so on.
+ 
+ *Input: arr[] = [7, 1, 2, 3, 4, 5, 6]
+ *Output: [7, 1, 6, 2, 5, 3, 4]
+ *Explanation: The first element is first maximum
+ *and second element is first minimum and so on.
+
+ *Input: arr[] = [1, 6, 9, 4, 3, 7, 8, 2]
+ *Output: [9, 1, 8, 2, 7, 3, 6, 4]
+ *Explanation: The first element is first maximum
+ *and second element is first minimum and so on.
+ 
+ */
+
+SOURCE CODE:
+
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+int sort(int n,int* arr)
+{
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            //swap
+            if(arr[i]>arr[j])
+            {
+                int temp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;
+            }
+        }
+    }
+    return* arr;
+}
+
+void rearrange(int arr[], int n, int result[]) {
+    // Step 1: Sort the array
+    sort(n,arr);
+    // Step 2: Two pointers
+    int start = 0, end = n - 1;
+    int i = 0;
+
+    while (start <= end) {
+        if (start != end) {
+            result[i++] = arr[end--];
+            result[i++] = arr[start++];
+        } else {
+            result[i++] = arr[start++];
+        }
+    }
+}
+
+int main() {
+    int n;
+    cout<<"Enter the size of array: ";
+    cin>>n;
+    int arr[n];
+    cout<<"Enter the array elements: ";
+    for(int i=0;i<n;i++)
+        cin>>arr[i];
+        
+    int result[n];
+
+    rearrange(arr, n, result);
+
+    cout<<"Rearranged array: ";
+    for (int i = 0; i < n; i++) {
+        cout<<result[i]<<" ";
+    }
+    cout<<endl;
+
+    return 0;
+}
+
+OUTPUT 1:
+Enter the size of array: 7
+Enter the array elements: 7 1 2 3 4 5 6
+Rearranged array: 7 1 6 2 5 3 4
+
+OUTPUT 2:
+Enter the size of array: 8
+Enter the array elements: 1 6 9 4 3 7 8 2
+Rearranged array: 9 1 8 2 7 3 6 4 
