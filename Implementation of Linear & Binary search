@@ -108,7 +108,29 @@ int main()
     return 0;
 }
 
-OUTPUT:
+OUTPUT 1:
+
+Enter the size of array: 7
+Enter the array elements: 2 4 6 8 10 12 14
+
+Enter the element to be find: 8
+
+We can search the element in two approach
+1.Linear search
+2.Binary search
+
+If you choose Binary search the array must be sorted
+Enter the choice: 1
+Target 8 is found at index [3]
+ ____________________________________________
+|RunningTime  |Linear Search  |Binary Search |
+|_____________|_______________|______________|
+|Best case    | O(1)          |  O(1)        |
+|Average case | O(n)          |  O(logn)     |
+|Worst case   | O(n)          |  O(logn)     |
+|_____________|_______________|______________|
+
+OUTPUT 2:
 
 Enter the size of array: 7
 Enter the array elements: 2 4 6 8 10 12 14
