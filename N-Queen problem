@@ -1,0 +1,46 @@
+SOURCE CODE :
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class NQueens {
+public:
+    int totalNQueens(int n) {
+        vector<bool> col(n, false);
+        vector<bool> diag1(2 * n, false);
+        vector<bool> diag2(2 * n, false);
+        int result = 0;
+        backtrack(0, n, col, diag1, diag2, result);
+        return result;
+    }
+
+private:
+    void backtrack(int row, int n, vector<bool> &col, vector<bool> &diag1, vector<bool> &diag2, int &result) {
+        if (row == n) {
+            result++;
+            return;
+        }
+
+        for (int c = 0; c < n; c++) {
+            if (col[c] || diag1[row - c + n] || diag2[row + c]) continue;
+            col[c] = diag1[row - c + n] = diag2[row + c] = true;
+            backtrack(row + 1, n, col, diag1, diag2, result);
+            col[c] = diag1[row - c + n] = diag2[row + c] = false; // Backtrack
+        }
+    }
+};
+
+int main() {
+    NQueens nq;
+    int n;
+    cout << "Enter n: ";
+    cin >> n;
+    cout << "Number of solutions: " << nq.totalNQueens(n) << endl;
+    return 0;
+}
+
+OUTPUT : 
+
+Enter n: 4
+Number of solutions: 2
