@@ -1,46 +1,66 @@
 SOURCE CODE :
 
 #include <iostream>
-#include <vector>
 using namespace std;
 
-class NQueens {
-public:
-    int totalNQueens(int n) {
-        vector<bool> col(n, false);
-        vector<bool> diag1(2 * n, false);
-        vector<bool> diag2(2 * n, false);
-        int result = 0;
-        backtrack(0, n, col, diag1, diag2, result);
-        return result;
+#define N 4  // Change this value for different board sizes
+
+int board[N][N];
+
+// Function to print the board
+void printBoard() {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++)
+            cout << (board[i][j] ? "Q " : ". ");
+        cout << endl;
+    }
+    cout << endl;
+}
+
+// Check if position is safe
+bool isSafe(int row, int col) {
+    for (int i = 0; i < row; i++)
+        if (board[i][col]) return false;
+
+    for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--)
+        if (board[i][j]) return false;
+
+    for (int i = row - 1, j = col + 1; i >= 0 && j < N; i--, j++)
+        if (board[i][j]) return false;
+
+    return true;
+}
+
+// Solve using backtracking
+bool solve(int row) {
+    if (row == N) {
+        printBoard();
+        return true;
     }
 
-private:
-    void backtrack(int row, int n, vector<bool> &col, vector<bool> &diag1, vector<bool> &diag2, int &result) {
-        if (row == n) {
-            result++;
-            return;
-        }
-
-        for (int c = 0; c < n; c++) {
-            if (col[c] || diag1[row - c + n] || diag2[row + c]) continue;
-            col[c] = diag1[row - c + n] = diag2[row + c] = true;
-            backtrack(row + 1, n, col, diag1, diag2, result);
-            col[c] = diag1[row - c + n] = diag2[row + c] = false; // Backtrack
+    for (int col = 0; col < N; col++) {
+        if (isSafe(row, col)) {
+            board[row][col] = 1;
+            solve(row + 1);
+            board[row][col] = 0; // backtrack
         }
     }
-};
+    return false;
+}
 
 int main() {
-    NQueens nq;
-    int n;
-    cout << "Enter n: ";
-    cin >> n;
-    cout << "Number of solutions: " << nq.totalNQueens(n) << endl;
+    solve(0);
     return 0;
 }
 
 OUTPUT : 
 
-Enter n: 4
-Number of solutions: 2
+. Q . .
+. . . Q
+Q . . .
+. . Q .
+
+. . Q .
+Q . . .
+. . . Q
+. Q . .
