@@ -1,0 +1,59 @@
+SOURCE CODE : 
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+#define INF 99999  // A large number representing infinity
+#define V 4        // Number of vertices
+
+void floydWarshall(int graph[V][V]) {
+    int dist[V][V];
+
+    // Step 1: Initialize distance matrix
+    for (int i = 0; i < V; i++)
+        for (int j = 0; j < V; j++)
+            dist[i][j] = graph[i][j];
+
+    // Step 2: Update distances considering all vertices as intermediate
+    for (int k = 0; k < V; k++) {
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < V; j++) {
+                if (dist[i][k] + dist[k][j] < dist[i][j])
+                    dist[i][j] = dist[i][k] + dist[k][j];
+            }
+        }
+    }
+
+    // Step 3: Print the final shortest distance matrix
+    cout << "Shortest distances between every pair of vertices:\n";
+    for (int i = 0; i < V; i++) {
+        for (int j = 0; j < V; j++) {
+            if (dist[i][j] == INF)
+                cout << "INF\t";
+            else
+                cout << dist[i][j] << "\t";
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    int graph[V][V] = {
+        {0, 3, INF, 7},
+        {8, 0, 2, INF},
+        {5, INF, 0, 1},
+        {2, INF, INF, 0}
+    };
+
+    floydWarshall(graph);
+    return 0;
+}
+
+OUTPUT :
+
+Shortest distances between every pair of vertices:
+0	3	5	6
+5	0	2	3
+3	6	0	1
+2	5	7	0
