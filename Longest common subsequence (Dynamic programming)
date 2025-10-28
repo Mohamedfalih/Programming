@@ -2,81 +2,37 @@ SOURCE CODE:
 
 #include <iostream>
 #include <string>
-#include <algorithm>
-#include <vector>
-
 using namespace std;
 
-// Function to find the length of the LCS and build the DP table
-vector<vector<int>> build_lcs_table(const string& str1, const string& str2) {
-    int m = str1.length();
-    int n = str2.length();
+int LCS(string X, string Y) {
+    int m = X.length();
+    int n = Y.length();
+    int dp[m+1][n+1];
 
-    vector<vector<int>> lcs_table(m + 1, vector<int>(n + 1));
-
+    // Build table bottom-up
     for (int i = 0; i <= m; i++) {
         for (int j = 0; j <= n; j++) {
-            if (i == 0 || j == 0) {
-                lcs_table[i][j] = 0;
-            } else if (str1[i - 1] == str2[j - 1]) {
-                lcs_table[i][j] = 1 + lcs_table[i - 1][j - 1];
-            } else {
-                lcs_table[i][j] = max(lcs_table[i - 1][j], lcs_table[i][j - 1]);
-            }
-        }
-    }
-    return lcs_table;
-}
-
-// Function to reconstruct and print the LCS
-void print_lcs(const string& str1, const string& str2, const vector<vector<int>>& lcs_table) {
-    int m = str1.length();
-    int n = str2.length();
-    
-    int index = lcs_table[m][n];
-    string lcs = "";
-    lcs.resize(index);
-
-    int i = m; 
-    int j = n;
-    while (i > 0 && j > 0) {
-        if (str1[i - 1] == str2[j - 1]) {
-            lcs[index - 1] = str1[i - 1];
-            i--; 
-            j--; 
-            index--;
-        } else if (lcs_table[i - 1][j] > lcs_table[i][j - 1]) {
-            i--;
-        } else {
-            j--;
+            if (i == 0 || j == 0)
+                dp[i][j] = 0;
+            else if (X[i-1] == Y[j-1])
+                dp[i][j] = 1 + dp[i-1][j-1];
+            else
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
         }
     }
 
-    cout << "Longest Common Subsequence: " << lcs << endl;
+    // The last cell contains the length of LCS
+    return dp[m][n];
 }
 
 int main() {
-    string S1 = "AGGTAB";
-    string S2 = "GXTXAYB";
+    string X = "ABCBDAB";
+    string Y = "BDCAB";
 
-    cout << "String 1: " << S1 << endl;
-    cout << "String 2: " << S2 << endl;
-
-    vector<vector<int>> dp_table = build_lcs_table(S1, S2);
-    
-    int length = dp_table[S1.length()][S2.length()];
-    cout << "Length of LCS: " << length << endl;
-
-    if (length > 0) {
-        print_lcs(S1, S2, dp_table);
-    }
-    
+    cout << "Length of LCS is " << LCS(X, Y) << endl;
     return 0;
 }
 
 OUTPUT : 
 
-String 1: AGGTAB
-String 2: GXTXAYB
-Length of LCS: 4
-Longest Common Subsequence: GTAB
+Length of LCS is 4
