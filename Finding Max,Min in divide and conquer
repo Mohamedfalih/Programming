@@ -1,0 +1,78 @@
+SOURCE CODE:
+FOR MAX:
+
+
+#include <iostream>
+using namespace std;
+
+// Function to find maximum using Divide and Conquer
+int findMax(int arr[], int low, int high) {
+    // Base Case: Only one element
+    if (low == high)
+        return arr[low];
+
+    // Divide the array into two halves
+    int mid = (low + high) / 2;
+
+    // Recur for left and right halves
+    int maxLeft = findMax(arr, low, mid);
+    int maxRight = findMax(arr, mid + 1, high);
+
+    // Conquer: return maximum of the two halves
+    return (maxLeft > maxRight) ? maxLeft : maxRight;
+}
+
+int main() {
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    int arr[n];
+    cout << "Enter elements:\n";
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    int maximum = findMax(arr, 0, n - 1);
+    cout << "Maximum element is: " << maximum << endl;
+
+    return 0;
+}
+
+SOUTCE CODE:
+FOR MIN:
+
+#include <iostream>
+using namespace std;
+
+// Function to find minimum using Divide and Conquer
+int findMin(int arr[], int low, int high) {
+    // Base Case: Only one element
+    if (low == high)
+        return arr[low];
+
+    // Divide the array into two halves
+    int mid = (low + high) / 2;
+
+    // Recur for left and right halves
+    int minLeft = findMin(arr, low, mid);
+    int minRight = findMin(arr, mid + 1, high);
+
+    // Conquer: return minimum of the two halves
+    return (minLeft < minRight) ? minLeft : minRight;
+}
+
+int main() {
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    int arr[n];
+    cout << "Enter elements:\n";
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    int minimum = findMin(arr, 0, n - 1);
+    cout << "Minimum element is: " << minimum << endl;
+
+    return 0;
+}
